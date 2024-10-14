@@ -1,0 +1,58 @@
+html {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100dvh;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.message-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    height: 100%;
+
+    & .message {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 20px;
+
+        & .author {
+            font-weight: bold;
+            font-size: 12px;
+        }
+    }
+}
+
+.message-input {
+    display: flex;
+    padding: 20px;
+    gap: 10px;
+
+    & .text-input {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    & .send-button {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
