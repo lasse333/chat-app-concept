@@ -104,24 +104,27 @@ def chat_events():
 
     clients[client_id]["expires"] = time.time() + client_timeout
 
-    clear_expired_clients()
 
     print(json.dumps(clients, indent=4))
 
     def execute_events():
-        for i in range(len(clients[client_id]["messages"])):
-            yield f'id:1\ndata: {json.dumps(clients[client_id]["messages"][0])}\nevent: message\n\n'
-            clients[client_id]["messages"].pop(0)
+        while client_id in clients:
+            clients[client_id]["expires"] = time.time() + client_timeout
+            clear_expired_clients()
+            for _ in range(len(clients[client_id]["messages"])):
+                yield f'id:1\ndata: {json.dumps(clients[client_id]["messages"][0])}\nevent: message\n\n'
+                clients[client_id]["messages"].pop(0)
     
     return Response(execute_events(), mimetype='text/event-stream')
 
 
 @app.route('/api/chat/send_message', methods=['POST'])
 def send_message():
+    print(json.dumps(clients, indent=4))
     for client in clients:
         
-        if client == int(request.args.get("client_id")):
-            continue
+        # if client == int(request.args.get("client_id")):
+        #     continue
 
         clear_expired_clients()
 

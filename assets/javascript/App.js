@@ -26,7 +26,7 @@ export default async function App() {
 }
 
 function send_message(message, username) {
-    displayMessage({"content": message, "author": username}, true)
+    // displayMessage({"content": message, "author": username}, true)
     fetch('/api/chat/send_message?client_id=' + window.chat.client_id, {
         method: 'POST',
         headers: {
